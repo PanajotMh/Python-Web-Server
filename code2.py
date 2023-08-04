@@ -94,6 +94,7 @@ def save_to_database(student):
 
 
 
+
 def delete_student_by_name():
     name = input("Enter the name of the student to delete: ")
 
