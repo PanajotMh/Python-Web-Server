@@ -11,12 +11,14 @@ users = {
     'user2': 'pass456'
 }
 
+
 @app.route('/')
 def home():
     if 'username' in session:
         return render_template('home.html')
     else:
         return redirect(url_for('login'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
