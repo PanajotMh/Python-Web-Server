@@ -18,6 +18,18 @@ def home():
         return render_template('home.html')
     else:
         return redirect(url_for('login'))
+    
+@app.route("/studentCreate", methods=["POST"])
+def studentCreate():
+    name = request.form.get("name")
+    surname = request.form.get("surname")
+    age = request.form.get("age")
+    joining_year = request.form.get("joiningYear")
+
+    #add actions later
+
+    response_message = f"Received: {name} {surname}, Age: {age}, Joining Year: {joining_year}"
+    return response_message
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -52,4 +64,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
