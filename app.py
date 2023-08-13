@@ -1,12 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, get_flashed_messages
-from flask_sslify import SSLify
-import os
-import multiprocessing
 
 
 app = Flask(__name__)
 app.secret_key = 'secretKey'  # Session management
-sslify = SSLify(app)
 
 
 
@@ -67,22 +63,11 @@ def logout():
     flash('Logged out successfully!', 'success')  # Add flash message for successful logout
     return redirect(url_for('login'))
 
-    # lol
+    
 
-
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
 
 # if __name__ == '__main__':
 #     app.run(ssl_context=('certificate.pem', 'private_key.pem'), host='0.0.0.0', port=443)
-
-if __name__ == '__main__':
-    process1 = multiprocessing.Process(target=run_app)
-    # process2 = multiprocessing.Process(target=run_app2)
-    
-    process1.start()
-    # process2.start()
-    
-    process1.join()
-    # process2.join()
-
-    app.run(host='0.0.0.0', port=8080)
 
