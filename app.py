@@ -73,25 +73,6 @@ def logout():
 # if __name__ == '__main__':
 #     app.run(ssl_context=('certificate.pem', 'private_key.pem'), host='0.0.0.0', port=443)
 
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=8080)
-
-
-app = Flask(__name__)
-app2 = Flask(__name__)
-
-def run_app():
-    app.run(ssl_context=('certificate.pem', 'private_key.pem'), host='0.0.0.0', port=443)
-
-def run_app2():
-    app2.run(host='0.0.0.0', port=8080)
-
 if __name__ == '__main__':
-    process1 = multiprocessing.Process(target=run_app)
-    # process2 = multiprocessing.Process(target=run_app2)
-    
-    process1.start()
-    # process2.start()
-    
-    process1.join()
-    # process2.join()
+    app.run(host='0.0.0.0', port=8080)
+
