@@ -5,6 +5,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+app.secret_key = 'VerySecret'  # Replace with your own secret key
+
 # Mock user credentials
 users = {
     'admin': 'password',
