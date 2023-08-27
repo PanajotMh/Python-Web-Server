@@ -1,7 +1,6 @@
 <!-- home.html -->
-<html>
-<doctype HTML>
-
+<!doctype HTML>
+<html lang="en">
 <h1>Welcome, {{ session['username'] }}</h1>
 
     <body>
@@ -25,8 +24,6 @@
 
             <button type="button" id="submitBtn">Submit</button>
         </form>
-
-        <div id="response"></div>
 
         <script>
             document.getElementById("submitBtn").addEventListener("click", async function () {
