@@ -2,9 +2,27 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import random
 import string
 from datetime import datetime
+from google_recaptcha import ReCaptcha
+
 
 app = Flask(__name__)
-app.secret_key = 'secretKey'  # Session management
+
+
+
+
+recaptcha = ReCaptcha(
+    app=app,
+    site_key="6LexhtwnAAAAAKxgTX9EcIfYsyMv8AjGtn5sQg_P",
+    secret_key="6LexhtwnAAAAAEvjrmldoFje2Y6OdpNk9c0tV2jb"
+)
+
+@app.route("/contact/", methods=["GET", "POST"])
+def home():
+
+    if recaptcha.verify():
+        print('Recaptcha has successded.')
+    else:
+        print('Recaptcha has failed.')
 
 
 
