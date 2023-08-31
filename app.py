@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import random
 import string
 from datetime import datetime
+import mysql.connector
+
 
 app = Flask(__name__)
 
@@ -14,7 +16,6 @@ users = {
     'user2': 'pass456'
 }
 
-Students = []
 
 
 @app.route('/')
@@ -35,9 +36,12 @@ def studentCreate():
 
     if name_checker(name) and name_checker(surname) and number_checker(age) and date_checker(joiningYear):
         student = Student(name, surname, age, joiningYear)
-        Students.append(student)
+
         response_message = (f"Received: {name} {surname}, Age: {age}, Joining Year: {joiningYear},"
                             f" Student ID: {student.student_id}")
+
+        save_to_database(student)
+
         return "Student record created successfully. " + response_message
     else:
         return "Invalid input. Please try again. Stop hacking my website lol."
@@ -111,6 +115,30 @@ def date_checker(joiningYear):
         return True
     except ValueError:
         return False
+
+def save_to_database(student):
+    # Establish a connection to the MariaDB database
+    conn = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="Panajot",
+        database="studentdatabase"
+    )
+
+    cursor = conn.cursor()   # what tells the database what you wanna do --> always use the cursor
+
+    # Prepare the SQL query to insert the student data into the database
+    query = "INSERT INTO students (student_id, name, surname, age, joining_year) VALUES (%s, %s, %s, %s, %s)"
+    values = (student.student_id, student.name, student.surname, student.age, student.joiningYear)
+
+    # Execute the query
+    cursor.execute(query, values)
+
+    # Commit the changes and close the connection
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 
 
 # def create_student(name, surname, age, joiningYear):
